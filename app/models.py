@@ -1,12 +1,22 @@
 from sqlalchemy import Column, Integer, String, Numeric, ForeignKey
 from sqlalchemy.orm import declarative_base, relationship
 
+
 Base = declarative_base()
 
 
-# ------------------------
-# DIM TABLES
-# ------------------------
+
+from sqlalchemy import Boolean
+
+class AppUser(Base):
+    __tablename__ = "app_users"
+
+    id = Column(Integer, primary_key=True)
+    username = Column(String(100), unique=True)
+    password = Column(String(255))
+    is_admin = Column(Boolean, default=False)
+
+
 
 class DimUser(Base):
     __tablename__ = "dim_user"
@@ -79,9 +89,7 @@ class DimTime(Base):
     transactions = relationship("FactTransaction", back_populates="time")
 
 
-# ------------------------
-# FACT TABLE
-# ------------------------
+
 
 class FactTransaction(Base):
     __tablename__ = "fact_transaction"
@@ -105,3 +113,5 @@ class FactTransaction(Base):
     ml_model = relationship("DimMLModel", back_populates="transactions")
     webhook = relationship("DimWebhook", back_populates="transactions")
     time = relationship("DimTime", back_populates="transactions")
+    latency_ms = Column(Integer)
+
