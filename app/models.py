@@ -44,6 +44,7 @@ class DimPaymentGateway(Base):
     transactions = relationship("FactTransaction", back_populates="gateway")
 
 
+
 class DimRuleEngine(Base):
     __tablename__ = "dim_rule_engine"
 
@@ -53,6 +54,7 @@ class DimRuleEngine(Base):
     threshold = Column(Numeric)
 
     transactions = relationship("FactTransaction", back_populates="rule")
+
 
 
 class DimMLModel(Base):
@@ -75,6 +77,8 @@ class DimWebhook(Base):
     retry_count = Column(Integer)
 
     transactions = relationship("FactTransaction", back_populates="webhook")
+
+
 
 
 class DimTime(Base):
