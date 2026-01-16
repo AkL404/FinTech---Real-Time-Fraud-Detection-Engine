@@ -18,3 +18,5 @@ def ml_score(amount: float) -> float:
     # Convert IsolationForest score into 0–100 scale
     risk = (1 - prediction) * 100
     return round(min(max(risk, 0), 100), 2)
+
+
